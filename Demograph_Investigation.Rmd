@@ -1,0 +1,29 @@
+---
+title: "Analysis of Specific & Demographic info for PhD"
+output: html_notebook
+---
+
+
+
+```{r echo=FALSE}
+source('scripts/Required.R')
+
+downloadOSFdata()
+loadalldata()
+Demos<-read.csv("data/All_demographics.csv", header = TRUE)
+fixnocursorcolnames()
+loadcolors()
+```
+
+```{r, echo = FALSE}
+### Create Data to use for ANOVA's and t-tests
+
+ANOVAdata<- PrepdataforANOVA1(active_reaches, passive_reaches, pause_reaches[33:320,], nocursor_reaches[33:320,],nocursorI_reaches[33:320,], terminal_reaches )
+ANOVAPdata<- PrepdataforPropANOVA(active_localization,passive_localization, terminal_localization, exposure_localization, nocursor_nocursors, nocursorI_nocursors)
+
+
+TtestPdata<- PrepdataforPropT(active_localization, passive_localization,nocursor_nocursors, nocursorI_nocursors, terminal_localization,exposure_localization)
+Ttestdata<- PrepdataforT(active_reaches, passive_reaches, pause_reaches[33:320,], nocursor_reaches[33:320,], nocursorI_reaches[33:320,], terminal_reaches)
+
+```
+
