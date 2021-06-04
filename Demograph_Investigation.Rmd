@@ -35,7 +35,7 @@ IndependentT(TtestPdata, "Terminal")# there is a difference @ end of 1st rotatio
 IndependentT(TtestPdata, "Exposure")
 IndependentT(TtestPdata, "No-Cursor")# difference @ beginning of both rotations
 IndependentT(TtestPdata, "No-CursorI")# different @ end of 1st rotation
-Overallttestofsex(TtestPdata)# when i compare overall, there is a difference between males and females @ the end of 1st rotation. 
+Overallttestofsex(TtestPdata)# when i compare overall, there is a difference between males and females @ the end of 1st rotation. Wrong because it includes no-cursors and localizations 
 
 
 #Comparing Males and Females within Each Experiment (Reach Trials)
@@ -47,8 +47,23 @@ IndependentT(Ttestdata, "No-Cursor")# difference @ beginning of 2nd rotation
 IndependentT(Ttestdata, "No-CursorI")
 Overallttestofsex(Ttestdata)# when i compare overall, there is no difference between males and females 
 
-#Individual look at exposure clamp reaches and variation data
+
+#Experiment 1 Reaches Males vs female
+Sexcomparisonexp1(Ttestdata) # significant difference @ end of 1st rotation and 2nd rotation
+
+#Experiment 1 Implicit Measures male vs female
+Sexcomparisonexp1REA(TtestPdata) # no difference anywhere 
+Sexcomparisonexp1prop(TtestPdata) # no difference
+
+#Experiment 2 Reaches male vs female
+Sexcomparisonexp2Reach(Ttestdata)# significant @ 2nd rotation 15 males out of 64 subjects
 exposuresexcomparison() #No difference between beginning or end of error clamp trials. 
+
+#Experiment 2 Localizations male vs female
+Sexcomparisonexp2prop(TtestPdata) # significant @ end of 1st Rotation 22 males out of 96 people 
+
+#Experiment 3 Variation reaches and localizations
 V_RM<-VariationTcombine(variation_reaches) # there is no difference between males and females during aligned training. 
+V_RM<-VariationTcombine(variation_localization) # there is no difference between males and females during aligned training. 
 
 ```
