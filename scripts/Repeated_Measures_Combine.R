@@ -238,11 +238,11 @@ PrepdataforPropT<- function(adata, pasdata, ncdata, ncncdata, tdata, edata){
   Pas_RM[,21:22]<-Demos[Demos$Experiment == "Passive",1:2]
 
   
-  NC_RM<-TCombine(ncdata)
+  NC_RM<-NoCursorsTCombine(ncdata)
   NC_RM$Experiment <- rep('No-Cursor', nrow(NC_RM))
   NC_RM[,21:22]<-Demos[Demos$Experiment == "No_Cursor",1:2]
   
-  NCI_RM<-TCombine(ncncdata)
+  NCI_RM<-NoCursorsTCombine(ncncdata)
   NCI_RM$Experiment <- rep('No-CursorI', nrow(NCI_RM))
   NCI_RM[,21:22]<-Demos[Demos$Experiment == "No_Cursor_I",1:2]
   
@@ -257,4 +257,6 @@ PrepdataforPropT<- function(adata, pasdata, ncdata, ncncdata, tdata, edata){
   AllDataRM<- rbind(A_RM, Pas_RM,T_RM, E_RM, NC_RM, NCI_RM)
   return(AllDataRM)
 }
+
+
 

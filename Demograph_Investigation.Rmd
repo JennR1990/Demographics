@@ -24,6 +24,31 @@ ANOVAPdata<- PrepdataforPropANOVA(active_localization,passive_localization, term
 
 TtestPdata<- PrepdataforPropT(active_localization, passive_localization,nocursor_nocursors, nocursorI_nocursors, terminal_localization,exposure_localization)
 Ttestdata<- PrepdataforT(active_reaches, passive_reaches, pause_reaches[33:320,], nocursor_reaches[33:320,], nocursorI_reaches[33:320,], terminal_reaches)
-
 ```
 
+
+```{r, echo = FALSE}
+#Comparing Males and Females within Each Experiment (localization and no-cursor trials)
+IndependentT(TtestPdata, "Passive")
+IndependentT(TtestPdata, "Active")
+IndependentT(TtestPdata, "Terminal")# there is a difference @ end of 1st rotation
+IndependentT(TtestPdata, "Exposure")
+IndependentT(TtestPdata, "No-Cursor")# difference @ beginning of both rotations
+IndependentT(TtestPdata, "No-CursorI")# different @ end of 1st rotation
+Overallttestofsex(TtestPdata)# when i compare overall, there is a difference between males and females @ the end of 1st rotation. 
+
+
+#Comparing Males and Females within Each Experiment (Reach Trials)
+IndependentT(Ttestdata, "Passive")# difference @ beginning of 2nd rotation
+IndependentT(Ttestdata, "Active") # different @ end of 2nd rotation & error clamp
+IndependentT(Ttestdata, "Terminal")
+IndependentT(Ttestdata, "Pause")
+IndependentT(Ttestdata, "No-Cursor")# difference @ beginning of 2nd rotation
+IndependentT(Ttestdata, "No-CursorI")
+Overallttestofsex(Ttestdata)# when i compare overall, there is no difference between males and females 
+
+#Individual look at exposure clamp reaches and variation data
+exposuresexcomparison() #No difference between beginning or end of error clamp trials. 
+V_RM<-VariationTcombine(variation_reaches) # there is no difference between males and females during aligned training. 
+
+```

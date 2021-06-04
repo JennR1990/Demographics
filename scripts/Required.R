@@ -186,3 +186,9 @@ loadcolors <- function() {
   colorE       <<- rgb(0.85, 0.65, 0.12)         # Yellow
   colorE_trans <<- rgb(0.85, 0.65, 0.12, 0.2)     # transparent Yellow
 }
+
+getreachesformodel<- function(data) {
+  meanreaches<-rowMeans(data[,2:ncol(data)], na.rm=TRUE)
+  distortion<- data$distortion
+  return(data.frame(meanreaches,distortion))
+}
