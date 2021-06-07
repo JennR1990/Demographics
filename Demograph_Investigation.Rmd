@@ -7,7 +7,8 @@ output: html_notebook
 
 ```{r echo=FALSE}
 source('scripts/Required.R')
-
+source('scripts/Repeated_Measures_Combine.R')
+source('scripts/Analysis.R')
 downloadOSFdata()
 loadalldata()
 Demos<-read.csv("data/All_demographics.csv", header = TRUE)
@@ -64,6 +65,8 @@ Sexcomparisonexp2prop(TtestPdata) # significant @ end of 1st Rotation 22 males o
 
 #Experiment 3 Variation reaches and localizations
 V_RM<-VariationTcombine(variation_reaches) # there is no difference between males and females during aligned training. 
-V_RM<-VariationTcombine(variation_localization) # there is no difference between males and females during aligned training. 
+V_PM<-VariationTcombine(variation_localization) # there is no difference between males and females during aligned training.
+Vrot<-VariationTcombine(variation_reaches,1) # this is how rotation for every 12 trials.
+Plotlearningovertime() #this is how plot the percent compensation over time. 
 
 ```

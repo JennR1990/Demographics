@@ -47,12 +47,12 @@ exposuresexcomparison<- function(){
   sprintf("There are %.f Males out of %.f subjects", sum(E_RM$Sex == "M"),sum(nrow(E_RM)))
 }
 
-VariationTcombine<- function(data){
+VariationTcombine<- function(data, give = "RM"){
   
   start<- seq(from = 50, to = 480, by = 12)
   start<- start+8 #this means i am taking the last 4 trials from each rotation, making this smaller means i take more trials.
   stop<- seq(from = 61, to = 481, by = 12)
-  stop[36]<- h[36]-2
+  stop[36]<- stop[36]-2
   
   V_RM<- data.frame(rep(NA, times = 33))
   
@@ -62,15 +62,116 @@ VariationTcombine<- function(data){
 
   
   aligned<- colMeans(data[46:49,2:33], na.rm = TRUE)
-  Names<-as.character(V_RM[1,])
-  colnames(V_RM)<- c(Names)
+  rotation<-c(0,as.numeric(V_RM[1,]))
+  colnames(V_RM)<- c(as.character(V_RM[1,]))
   V_RM<- V_RM[-1,]
   V_RM<- cbind(aligned, V_RM, Demos[Demos$Experiment == "Variation",1:2])
   
   print(t.test(V_RM$aligned[V_RM$Sex == "M"],V_RM$aligned[V_RM$Sex == "F"]))
-  return(V_RM)
+
   sprintf("There are %.f Males out of %.f subjects", sum(data$Sex == "M"),sum(nrow(data)))
+  
+  
+  if (give == "RM") {
+  return(V_RM)
+  }else {
+    
+    return(rotation)
+  }
+  
 }
+
+
+Plotlearningovertime<- function(){
+
+  
+  ##pull in the necessary data to make the plots
+Vrot<-VariationTcombine(variation_reaches,1)
+V_RM<-VariationTcombine(variation_reaches)
+V_PM<-VariationTcombine(variation_localization)
+locs<-colMeans(V_PM[,1:37], na.rm = TRUE)
+reachs<-colMeans(V_RM[,1:37], na.rm = TRUE)
+
+
+#Make all the data go in the same direction, some rotations are positive
+
+for (i in 1:37){
+if (reachs[i] <0){
+  
+  reachs[i]<-reachs[i]*-1
+} else{
+ #print("Done")
+}
+  
+}
+
+for (i in 1:37){
+  if (locs[i] <0){
+    
+    locs[i]<-locs[i]*-1
+  } else{
+   # print("Done")
+  }
+  
+}
+
+for (i in 1:37){
+  if (Vrot[i] <0){
+    
+    Vrot[i]<-Vrot[i]*-1
+  } else{
+    #print("Done")
+  }
+  
+}
+
+#Remove "INF" and O compensation trials, this wy it only includes trials that had a rotation
+
+for (i in 1:37) locs[i]<-round((locs[i]/Vrot[i])*100)
+percents<-as.numeric(unlist(locs[locs>5]))
+percents<-as.numeric(unlist(percents[percents<100]))
+for (i in 1:37) reachs[i]<-round((reachs[i]/Vrot[i])*100)
+REpercents<-as.numeric(unlist(reachs[reachs>5]))
+REpercents<-as.numeric(unlist(REpercents[REpercents<100]))
+
+
+
+#Plot the two separate lines that show how much they compensate over time. 
+
+plot(x = seq(from = 1, to = length(percents)), y = percents, type = "l", 
+     xlab = "Time", ylab = "Percent Compensation", ylim = c(0,100), col = "Red",
+     axes = FALSE, cex.lab = 1.5)
+axis(2, at = c(0, 20, 40, 60, 80, 100), cex.axis = 1.5,
+     las = 2)
+#axis(1,labels = c(50, 265, 480) ,at = c(1,12,24), cex.axis = 1.5 )
+lines(x = seq(from = 1, to = length(percents)), y = REpercents, col= "Blue")
+legend(
+  1,
+  17,
+  legend = c(
+    'Reaches',
+    'Localizations'),
+  col = c('blue', 'red'),
+  lty = c(1),
+  
+  
+  lwd = c(2),
+  bty = 'n', 
+  cex = 1.2
+)
+
+
+#Run regression comparing the percent compensation to the values 1:24. 
+reachreg<-lm(REpercents~x)
+summary(reachreg)
+locreg<-lm(percents~x)
+summary(locreg)
+
+##adding lines of best fit to plot
+abline(lm(REpercents~x), col = "Blue", lty = 3)
+abline(lm(percents~x), col = "Red", lty = 3 )
+}
+
 
 
 
