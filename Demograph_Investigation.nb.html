@@ -1763,18 +1763,141 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBWX1JNJGFsaWduZWRbVl9STSRTZXggPT0gXCJNXCJdIGFuZCBWX1JNJGFsaWduZWRbVl9STSRTZXggPT0gXCJGXCJdXG50ID0gLTAuMzU4OTksIGRmID0gMjQuNDY1LCBwLXZhbHVlID0gMC43MjI3XG5hbHRlcm5hdGl2ZSBoeXBvdGhlc2lzOiB0cnVlIGRpZmZlcmVuY2UgaW4gbWVhbnMgaXMgbm90IGVxdWFsIHRvIDBcbjk1IHBlcmNlbnQgY29uZmlkZW5jZSBpbnRlcnZhbDpcbiAtMi4zMzQxNjcgIDEuNjQxODgyXG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbi0xLjUxNDg3NiAtMS4xNjg3MzMgXG4ifQ== -->
-<pre><code>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwidGhpcyBpcyB0aGUgYmV0d2VlbiBzdWJqZWN0cyBjb21wYXJpc29uIG9mIE1hbGVzIGFuZCBmZW1hbGVzIGluIEV4cG9zdXJlIERhdGFcIlxuWzFdIFwiQWxpZ25lZFwiXG5cblx0V2VsY2ggVHdvIFNhbXBsZSB0LXRlc3RcblxuZGF0YTogIGRhdGEkQWxpZ25lZFtkYXRhJFNleCA9PSBleHAxXSBhbmQgZGF0YSRBbGlnbmVkW2RhdGEkU2V4ID09IGV4cDJdXG50ID0gMC4xMjIwMiwgZGYgPSAzNS42OTcsIHAtdmFsdWUgPSAwLjkwMzZcbmFsdGVybmF0aXZlIGh5cG90aGVzaXM6IHRydWUgZGlmZmVyZW5jZSBpbiBtZWFucyBpcyBub3QgZXF1YWwgdG8gMFxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuIC0xLjI0ODY5MSAgMS40MDg1MTlcbnNhbXBsZSBlc3RpbWF0ZXM6XG4gIG1lYW4gb2YgeCAgIG1lYW4gb2YgeSBcbiAwLjA1MTI1MDE0IC0wLjAyODY2MzU4IFxuXG5cbkNvaGVuJ3MgZFxuXG5kIGVzdGltYXRlOiAwLjAyODk2MTE3IChuZWdsaWdpYmxlKVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuICAgICBsb3dlciAgICAgIHVwcGVyIFxuLTAuNDUzMjA4MSAgMC41MTExMzA0IFxuXG5bMV0gMC4wMDAxNTEyOTRcblsxXSBcIkJlZ2lubmluZyBvZiAxc3Qgcm90YXRpb25cIlxuXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBkYXRhJFIxX0Vhcmx5W2RhdGEkU2V4ID09IGV4cDFdIGFuZCBkYXRhJFIxX0Vhcmx5W2RhdGEkU2V4ID09IGV4cDJdXG50ID0gLTAuMTk4NjQsIGRmID0gMzcuNzY1LCBwLXZhbHVlID0gMC44NDM2XG5hbHRlcm5hdGl2ZSBoeXBvdGhlc2lzOiB0cnVlIGRpZmZlcmVuY2UgaW4gbWVhbnMgaXMgbm90IGVxdWFsIHRvIDBcbjk1IHBlcmNlbnQgY29uZmlkZW5jZSBpbnRlcnZhbDpcbiAtMi41MDk1NjQgIDIuMDYxMTYwXG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbiA0LjczNDIxMiAgNC45NTg0MTQgXG5cblxuQ29oZW4ncyBkXG5cbmQgZXN0aW1hdGU6IC0wLjA0NTU1MjY0IChuZWdsaWdpYmxlKVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuICAgICBsb3dlciAgICAgIHVwcGVyIFxuLTAuNTI3NzQ4MiAgMC40MzY2NDI5IFxuXG5bMV0gMC4wMDAzNzQyMTM5XG5bMV0gXCJFbmQgb2YgMXN0IHJvdGF0aW9uXCJcblxuXHRXZWxjaCBUd28gU2FtcGxlIHQtdGVzdFxuXG5kYXRhOiAgZGF0YSRSMV9MYXRlW2RhdGEkU2V4ID09IGV4cDFdIGFuZCBkYXRhJFIxX0xhdGVbZGF0YSRTZXggPT0gZXhwMl1cbnQgPSAtMi4xMjYsIGRmID0gNDQuOTI2LCBwLXZhbHVlID0gMC4wMzkwM1xuYWx0ZXJuYXRpdmUgaHlwb3RoZXNpczogdHJ1ZSBkaWZmZXJlbmNlIGluIG1lYW5zIGlzIG5vdCBlcXVhbCB0byAwXG45NSBwZXJjZW50IGNvbmZpZGVuY2UgaW50ZXJ2YWw6XG4gLTQuOTkwODM3OCAtMC4xMzQ4MTU3XG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbiA0LjA0MDE3OSAgNi42MDMwMDYgXG5cblxuQ29oZW4ncyBkXG5cbmQgZXN0aW1hdGU6IC0wLjQ0NDc2ODQgKHNtYWxsKVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuICAgICAgbG93ZXIgICAgICAgdXBwZXIgXG4tMC45MzExMTM2OCAgMC4wNDE1NzY5NCBcblxuWzFdIDAuMDM0NDU4MzJcblsxXSBcIkJlZ2lubmluZyBvZiAybmQgcm90YXRpb25cIlxuXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBkYXRhJFIyW2RhdGEkU2V4ID09IGV4cDFdIGFuZCBkYXRhJFIyW2RhdGEkU2V4ID09IGV4cDJdXG50ID0gLTAuMTc0MDMsIGRmID0gMzQuMTgxLCBwLXZhbHVlID0gMC44NjI5XG5hbHRlcm5hdGl2ZSBoeXBvdGhlc2lzOiB0cnVlIGRpZmZlcmVuY2UgaW4gbWVhbnMgaXMgbm90IGVxdWFsIHRvIDBcbjk1IHBlcmNlbnQgY29uZmlkZW5jZSBpbnRlcnZhbDpcbiAtMy4zNzgwMzIgIDIuODQ1MDE5XG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbi0zLjM2MjkyOCAtMy4wOTY0MjEgXG5cblxuQ29oZW4ncyBkXG5cbmQgZXN0aW1hdGU6IC0wLjA0MjQ5NzY1IChuZWdsaWdpYmxlKVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuICAgICBsb3dlciAgICAgIHVwcGVyIFxuLTAuNTI0Njg3NSAgMC40Mzk2OTIyIFxuXG5bMV0gMC4wMDAzMjU3MTk1XG5bMV0gXCJCZWdpbm5pbmcgb2YgRXJyb3IgQ2xhbXBcIlxuXG5cdFdlbGNoIFR3byBTYW1wbGUgdC10ZXN0XG5cbmRhdGE6ICBkYXRhJEVDW2RhdGEkU2V4ID09IGV4cDFdIGFuZCBkYXRhJEVDW2RhdGEkU2V4ID09IGV4cDJdXG50ID0gLTAuMzYyNTMsIGRmID0gNjYuNjEsIHAtdmFsdWUgPSAwLjcxODFcbmFsdGVybmF0aXZlIGh5cG90aGVzaXM6IHRydWUgZGlmZmVyZW5jZSBpbiBtZWFucyBpcyBub3QgZXF1YWwgdG8gMFxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuIC0yLjQ5NTYxICAxLjcyODQ4XG5zYW1wbGUgZXN0aW1hdGVzOlxubWVhbiBvZiB4IG1lYW4gb2YgeSBcbiAxLjYwNDIyNiAgMS45ODc3OTEgXG5cblxuQ29oZW4ncyBkXG5cbmQgZXN0aW1hdGU6IC0wLjA2NDM5ODg5IChuZWdsaWdpYmxlKVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuICAgICBsb3dlciAgICAgIHVwcGVyIFxuLTAuNTQ2NjM4NiAgMC40MTc4NDA4IFxuXG5bMV0gMC4wMDA3NDc2MzFcblsxXSBcIkVuZCBvZiBFcnJvciBDbGFtcCAoMzIgdHJpYWxzKVwiXG5cblx0V2VsY2ggVHdvIFNhbXBsZSB0LXRlc3RcblxuZGF0YTogIGRhdGEkRUNfTGF0ZVtkYXRhJFNleCA9PSBleHAxXSBhbmQgZGF0YSRFQ19MYXRlW2RhdGEkU2V4ID09IGV4cDJdXG50ID0gLTAuMzc4MzQsIGRmID0gNDIuNzgxLCBwLXZhbHVlID0gMC43MDdcbmFsdGVybmF0aXZlIGh5cG90aGVzaXM6IHRydWUgZGlmZmVyZW5jZSBpbiBtZWFucyBpcyBub3QgZXF1YWwgdG8gMFxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuIC0yLjI3OTEwNSAgMS41NTkxNDBcbnNhbXBsZSBlc3RpbWF0ZXM6XG5tZWFuIG9mIHggbWVhbiBvZiB5IFxuMC45NzU2NDU2IDEuMzM1NjI4MSBcblxuXG5Db2hlbidzIGRcblxuZCBlc3RpbWF0ZTogLTAuMDgxMDc2MDkgKG5lZ2xpZ2libGUpXG45NSBwZXJjZW50IGNvbmZpZGVuY2UgaW50ZXJ2YWw6XG4gICAgIGxvd2VyICAgICAgdXBwZXIgXG4tMC41NjMzNjc0ICAwLjQwMTIxNTMgXG5cblsxXSAwLjAwMTE4NDQ3NlxuWzFdIFwiVGhlcmUgYXJlIDIyIE1hbGVzIG91dCBvZiA5NiBzdWJqZWN0c1wiXG4ifQ== -->
+<pre><code>[1] &quot;this is the between subjects comparison of Males and females in Exposure Data&quot;
+[1] &quot;Aligned&quot;
+
     Welch Two Sample t-test
 
-data:  V_RM$aligned[V_RM$Sex == &quot;M&quot;] and V_RM$aligned[V_RM$Sex == &quot;F&quot;]
-t = -0.35899, df = 24.465, p-value = 0.7227
+data:  data$Aligned[data$Sex == exp1] and data$Aligned[data$Sex == exp2]
+t = 0.12202, df = 35.697, p-value = 0.9036
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -2.334167  1.641882
+ -1.248691  1.408519
+sample estimates:
+  mean of x   mean of y 
+ 0.05125014 -0.02866358 
+
+
+Cohen&#39;s d
+
+d estimate: 0.02896117 (negligible)
+95 percent confidence interval:
+     lower      upper 
+-0.4532081  0.5111304 
+
+[1] 0.000151294
+[1] &quot;Beginning of 1st rotation&quot;
+
+    Welch Two Sample t-test
+
+data:  data$R1_Early[data$Sex == exp1] and data$R1_Early[data$Sex == exp2]
+t = -0.19864, df = 37.765, p-value = 0.8436
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.509564  2.061160
 sample estimates:
 mean of x mean of y 
--1.514876 -1.168733 </code></pre>
+ 4.734212  4.958414 
+
+
+Cohen&#39;s d
+
+d estimate: -0.04555264 (negligible)
+95 percent confidence interval:
+     lower      upper 
+-0.5277482  0.4366429 
+
+[1] 0.0003742139
+[1] &quot;End of 1st rotation&quot;
+
+    Welch Two Sample t-test
+
+data:  data$R1_Late[data$Sex == exp1] and data$R1_Late[data$Sex == exp2]
+t = -2.126, df = 44.926, p-value = 0.03903
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -4.9908378 -0.1348157
+sample estimates:
+mean of x mean of y 
+ 4.040179  6.603006 
+
+
+Cohen&#39;s d
+
+d estimate: -0.4447684 (small)
+95 percent confidence interval:
+      lower       upper 
+-0.93111368  0.04157694 
+
+[1] 0.03445832
+[1] &quot;Beginning of 2nd rotation&quot;
+
+    Welch Two Sample t-test
+
+data:  data$R2[data$Sex == exp1] and data$R2[data$Sex == exp2]
+t = -0.17403, df = 34.181, p-value = 0.8629
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -3.378032  2.845019
+sample estimates:
+mean of x mean of y 
+-3.362928 -3.096421 
+
+
+Cohen&#39;s d
+
+d estimate: -0.04249765 (negligible)
+95 percent confidence interval:
+     lower      upper 
+-0.5246875  0.4396922 
+
+[1] 0.0003257195
+[1] &quot;Beginning of Error Clamp&quot;
+
+    Welch Two Sample t-test
+
+data:  data$EC[data$Sex == exp1] and data$EC[data$Sex == exp2]
+t = -0.36253, df = 66.61, p-value = 0.7181
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.49561  1.72848
+sample estimates:
+mean of x mean of y 
+ 1.604226  1.987791 
+
+
+Cohen&#39;s d
+
+d estimate: -0.06439889 (negligible)
+95 percent confidence interval:
+     lower      upper 
+-0.5466386  0.4178408 
+
+[1] 0.000747631
+[1] &quot;End of Error Clamp (32 trials)&quot;
+
+    Welch Two Sample t-test
+
+data:  data$EC_Late[data$Sex == exp1] and data$EC_Late[data$Sex == exp2]
+t = -0.37834, df = 42.781, p-value = 0.707
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.279105  1.559140
+sample estimates:
+mean of x mean of y 
+0.9756456 1.3356281 
+
+
+Cohen&#39;s d
+
+d estimate: -0.08107609 (negligible)
+95 percent confidence interval:
+     lower      upper 
+-0.5633674  0.4012153 
+
+[1] 0.001184476
+[1] &quot;There are 22 Males out of 96 subjects&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 

@@ -107,7 +107,7 @@ Sexcomparisonexp1<- function(alldata, exp1 = "M", exp2 = "F") {
 }
 
 Sexcomparisonexp2Reach<- function(alldata, exp1 = "M", exp2 = "F") {
-  data<-alldata[alldata$Experiment == "Terminal" | alldata$Experiment == "Passive" ,]
+  data<-alldata[alldata$Experiment == "Terminal" | alldata$Experiment == "Passive" | alldata$Experiment == "Exposure"| alldata$Experiment == "Active" ,]
   
   print(sprintf('this is the between subjects comparison of Males and females in %s Data', task))
   print('Aligned')
