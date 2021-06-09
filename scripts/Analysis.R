@@ -162,14 +162,14 @@ legend(
 
 
 #Run regression comparing the percent compensation to the values 1:24. 
-reachreg<-lm(REpercents~x)
-summary(reachreg)
-locreg<-lm(percents~x)
-summary(locreg)
+reachreg<-lm(REpercents~seq(from = 1, to = length(percents)))
+print(summary(reachreg))
+locreg<-lm(percents~seq(from = 1, to = length(percents)))
+print(summary(locreg))
 
 ##adding lines of best fit to plot
-abline(lm(REpercents~x), col = "Blue", lty = 3)
-abline(lm(percents~x), col = "Red", lty = 3 )
+abline(lm(REpercents~seq(from = 1, to = length(percents))), col = "Blue", lty = 3)
+abline(lm(percents~seq(from = 1, to = length(percents))), col = "Red", lty = 3 )
 }
 
 
