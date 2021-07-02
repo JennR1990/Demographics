@@ -1,0 +1,111 @@
+trial: 51, rotation: -30, (change: -30)  
+CI: low -10.1325  hi -5.7934
+OUSIDE: trial 1: localization: -5.7612
+OUSIDE: trial 2: localization: -5.5008
+OUSIDE: trial 3: localization: -3.5695
+OUSIDE: trial 4: localization: -5.3613
+
+trial: 63, rotation: -15, (change: 15)  
+CI: low -10.5132  hi -1.7686
+WITHIN: trial 1: localization: -6.2790
+WITHIN: trial 2: localization: -9.3947
+WITHIN: trial 3: localization: -8.4042
+WITHIN: trial 4: localization: -10.4405
+
+trial: 87, rotation: -15, (change: -15)  
+CI: low -7.9933  hi -4.1771
+WITHIN: trial 1: localization: -6.4709
+WITHIN: trial 2: localization: -7.7608
+WITHIN: trial 3: localization: -7.2173
+OUSIDE: trial 4: localization: -1.0720
+
+trial: 99, rotation: 15, (change: 30)  
+CI: low 1.3297  hi 5.6490
+OUSIDE: trial 1: localization: -2.3317
+WITHIN: trial 2: localization: 3.2402
+WITHIN: trial 3: localization: 2.8012
+OUSIDE: trial 4: localization: -1.7754
+
+trial: 135, rotation: 15, (change: 15)  
+CI: low 1.9402  hi 5.5667
+OUSIDE: trial 1: localization: 5.9595
+WITHIN: trial 2: localization: 3.4564
+WITHIN: trial 3: localization: 3.8068
+OUSIDE: trial 4: localization: 5.8998
+
+trial: 159, rotation: -30, (change: -45)  
+CI: low -9.5510  hi -6.1312
+OUSIDE: trial 1: localization: -4.5329
+OUSIDE: trial 2: localization: -9.8602
+OUSIDE: trial 3: localization: -12.6662
+OUSIDE: trial 4: localization: -10.4434
+
+trial: 219, rotation: 30, (change: 30)  
+CI: low 3.0381  hi 6.4424
+OUSIDE: trial 1: localization: 7.5871
+OUSIDE: trial 2: localization: 9.6893
+OUSIDE: trial 3: localization: 8.0738
+OUSIDE: trial 4: localization: 7.6452
+
+trial: 267, rotation: -15, (change: -45)  
+CI: low -6.9267  hi -4.0263
+OUSIDE: trial 1: localization: -1.8163
+OUSIDE: trial 2: localization: -3.7023
+OUSIDE: trial 3: localization: -3.5801
+OUSIDE: trial 4: localization: -0.2380
+
+trial: 291, rotation: 30, (change: 45)  
+CI: low 3.1416  hi 6.5621
+OUSIDE: trial 1: localization: 2.2128
+WITHIN: trial 2: localization: 3.3346
+OUSIDE: trial 3: localization: 6.8641
+WITHIN: trial 4: localization: 5.2075
+
+trial: 315, rotation: 15, (change: -15)  
+CI: low -0.2265  hi 2.9220
+OUSIDE: trial 1: localization: 6.2973
+OUSIDE: trial 2: localization: 3.5909
+OUSIDE: trial 3: localization: 3.3736
+WITHIN: trial 4: localization: 2.1171
+
+trial: 327, rotation: -15, (change: -30)  
+CI: low -7.3976  hi -3.7257
+WITHIN: trial 1: localization: -4.1414
+OUSIDE: trial 2: localization: -3.5990
+WITHIN: trial 3: localization: -4.3585
+WITHIN: trial 4: localization: -5.2661
+
+trial: 363, rotation: -30, (change: -15)  
+CI: low -8.5117  hi -4.3508
+OUSIDE: trial 1: localization: -10.6249
+OUSIDE: trial 2: localization: -10.1917
+OUSIDE: trial 3: localization: -8.8165
+WITHIN: trial 4: localization: -7.9589
+
+trial: 375, rotation: 30, (change: 60)  
+CI: low 2.2423  hi 5.4757
+WITHIN: trial 1: localization: 3.5256
+OUSIDE: trial 2: localization: 0.5949
+WITHIN: trial 3: localization: 4.9668
+OUSIDE: trial 4: localization: -0.5210
+
+trial: 423, rotation: 30, (change: 15)  
+CI: low 1.9952  hi 5.7240
+WITHIN: trial 1: localization: 4.3664
+OUSIDE: trial 2: localization: 6.7749
+OUSIDE: trial 3: localization: 6.9294
+WITHIN: trial 4: localization: 4.2769
+
+trial: 435, rotation: -30, (change: -60)  
+CI: low -4.9881  hi -1.9168
+WITHIN: trial 1: localization: -2.6218
+OUSIDE: trial 2: localization: -6.8364
+OUSIDE: trial 3: localization: -5.2617
+OUSIDE: trial 4: localization: -5.7405
+
+trial: 447, rotation: 15, (change: 45)  
+CI: low 0.9847  hi 3.9446
+WITHIN: trial 1: localization: 0.9862
+OUSIDE: trial 2: localization: -1.2572
+WITHIN: trial 3: localization: 2.0415
+WITHIN: trial 4: localization: 2.6447

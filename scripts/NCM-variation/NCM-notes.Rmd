@@ -1,0 +1,108 @@
+---
+title: "Variation Stuff"
+output: html_notebook
+---
+
+Load the datasets:
+
+```{r}
+reaches <- read.csv('data/variation_reaches.csv', stringsAsFactors = F)
+localizations <- read.csv('data/variation_localizations.csv', stringsAsFactors = F)
+error.clamp.idx <- which(reaches$distortion == 360)
+reaches$distortion[error.clamp.idx] <- NA
+localizations$distortion[error.clamp.idx] <- NA
+```
+
+First we care mostly about the localizations. Just to be sure we baseline it first. (Doesn't seem to matter much...)
+
+```{r}
+baseline <- function(reachvector,blidx) reachvector - mean(reachvector[blidx], na.rm=TRUE)
+localizations[,2:ncol(localizations)] <- apply(localizations[,2:ncol(localizations)], FUN=baseline, MARGIN=c(2), blidx=c(24:49))
+```
+
+Let's get the mean and a confidence interval for every trial:
+
+```{r}
+mu <- apply(localizations[2:33], MARGIN=c(1), FUN=mean, na.rm=TRUE)
+plot(mu, type='l')
+```
+
+Now, we scale it by the distortion:
+
+```{r}
+plot(c(1:length(mu)-51), mu / localizations$distortion, type='l')
+```
+
+This looks like a decreasing line: the proportion does decrease when people experience a lot of changes in the distortion. Is it significant?
+
+```{r}
+timeProp <- data.frame('trial'=c(1:length(mu))-51, 'proportion'=mu/localizations$distortion)
+# timeProp <- timeProp[which(localizations$distortion != 0),]  # division by 0 also results in infinite proportions:
+timeProp <- timeProp[is.finite(timeProp$proportion),]
+linearPropModel <- lm(proportion ~ trial, data=timeProp)
+summary(linearPropModel)
+```
+
+So trial (time) explains part of the proportion: localization/rotation. Let's look at the intercept at the first rotated trial:
+
+```{r}
+plot(-1000,-1000,main='proportion over time',xlab='rotated trial',ylab='proportion',xlim=c(0,430),ylim=c(-.4,+.8),bty='n')
+
+lines(c(0,430),c(0,0))
+
+predicted <- predict(linearPropModel, newdata = data.frame('trial'=c(1:length(mu))), interval='confidence')
+n <- dim(predicted)[1]
+
+lines(c(51,length(mu))-51,c(0.2,0.2),col='blue',lty=2)
+
+polygon(x=c(c(51:n)-50,rev(c(51:n)-50)), y=c(predicted[c(51:length(mu)),2], rev(predicted[c(51:length(mu)),3])), col="#ff00ff2f", border=NA)
+
+lines(x=c(51:n)-50, y=predicted[c(51:length(mu)),1], col='#ff00ff')
+
+lines(c(1:length(mu)-51), mu / localizations$distortion, type='l', col='red')
+```
+
+Let's look at the immediacy of shifts in localization responses across variations. First we detect where the rotation changes are.
+
+```{r}
+rotchanges <- which(diff(localizations$distortion) != 0) + 1
+diff(rotchanges)
+```
+
+So that's mostly every 12 trials, but all changes from a rotation to itself (including from error-clamped to error-clamped I think) are there as well (those are the 24 trial epochs). However, we'll look at the localization deviation on the rotation change trials, and compare them to trials 9-12 after that (all 4 targets). 
+
+```{r}
+
+plot(localizations$distortion, type='l', col='gray')
+
+for (rotchange.idx in rotchanges) {
+  
+  initial_localization <- mu[rotchange.idx+1]
+  
+  if (localizations$distortion[rotchange.idx+1] == 0) next() # skip shifting to 0?
+  
+  # confidence interval needs to have all participants responses to be reliable?
+  # let's assume normality, so we don't bootstrap:
+  
+  data <- as.vector(as.matrix(localizations[c((rotchange.idx+9):(rotchange.idx+12)),c(2:33)]))
+  data <- colMeans( localizations[c((rotchange.idx+9):(rotchange.idx+12)),c(2:33)], na.rm=TRUE )
+  data <- data[is.finite(data)]
+  #print(data)
+  
+  cat(sprintf('\ntrial: %d, rotation: %d, (change: %d)  \n',rotchange.idx+1, localizations$distortion[rotchange.idx+1], diff(localizations$distortion[c((rotchange.idx-1):(rotchange.idx))])))
+  CI <- SMCL::getConfidenceInterval(data=data)
+  cat(sprintf('CI: low %0.4f  hi %0.4f\n',CI[1], CI[2]))
+  for (trialadd in c(1:4)) {
+    if (mu[rotchange.idx+trialadd] > min(CI) & mu[rotchange.idx+trialadd] < max(CI)) {
+      cat(sprintf('WITHIN: trial %d: localization: %0.4f\n', trialadd, mu[rotchange.idx+trialadd]))
+    } else {
+      cat(sprintf('OUTSIDE: trial %d: localization: %0.4f\n', trialadd, mu[rotchange.idx+trialadd]))
+    }
+  }
+
+}
+```
+
+
+
+

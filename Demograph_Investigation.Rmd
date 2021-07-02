@@ -67,6 +67,13 @@ Sexcomparisonexp2prop(TtestPdata) # significant @ end of 1st Rotation 22 males o
 V_RM<-VariationTcombine(variation_reaches) # there is no difference between males and females during aligned training. 
 V_PM<-VariationTcombine(variation_localization) # there is no difference between males and females during aligned training.
 Vrot<-VariationTcombine(variation_reaches,1) # this is how rotation for every 12 trials.
-Plotlearningovertime() #this is how plot the percent compensation over time. 
+Plotlearningovertimebyblock()
+Plotlearningovertimealltrials()
 
+
+svglite(file='figures/Exploratory Figures.svg', width=10, height=12, system_fonts=list(sans = "Arial"))
+layout(matrix(c(1,2,3,4,5,6), nrow=3, byrow=FALSE))
+Plotlearningovertimebyblock()
+Plotlearningovertimealltrials()
+dev.off()
 ```
