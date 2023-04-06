@@ -13,7 +13,7 @@ IndependentT<- function(alldata,task, exp1 = "M", exp2 = "F") {
   print(t.test(data$R1_Late[data$Sex == exp1],data$R1_Late[data$Sex == exp2])) # not sig A vs. NC
   print(cohen.d(data$R1_Late[data$Sex == exp1],data$R1_Late[data$Sex == exp2], na.rm = TRUE))
   print(etaSquaredTtest(data$R1_Late[data$Sex == exp1],data$R1_Late[data$Sex == exp2], na.rm = TRUE))
-  print('Beginning of 2nd rotation')
+  print('End of 2nd rotation')
   print(t.test(data$R2[data$Sex == exp1],data$R2[data$Sex == exp2])) # not sig  A vs. NC
   print(cohen.d(data$R2[data$Sex == exp1],data$R2[data$Sex == exp2], na.rm = TRUE))
   print(etaSquaredTtest(data$R2[data$Sex == exp1],data$R2[data$Sex == exp2], na.rm = TRUE))
@@ -34,7 +34,7 @@ print(t.test(data$Aligned[data$Sex == "M"],data$Aligned[data$Sex == "F"]))
 print(t.test(data$R1_Early[data$Sex == "M"],data$R1_Early[data$Sex == "F"]))
 print(t.test(data$R1_Late[data$Sex == "M"],data$R1_Late[data$Sex == "F"]))
 print(t.test(data$EC_Late[data$Sex == "M"],data$EC_Late[data$Sex == "F"]))
-sprintf("There are %.f Males out of %.f subjects", sum(data$Sex == "M"),sum(nrow(data)))
+print(sprintf("There are %.f Males out of %.f subjects", sum(data$Sex == "M"),sum(nrow(data))))
 }
 
 
@@ -44,7 +44,7 @@ exposuresexcomparison<- function(){
   E_RM<- cbind(EC_early, EC_Late, Demos[Demos$Experiment == "Exposure",1:2])
   print(t.test(E_RM$EC_early[E_RM$Sex == "M"],E_RM$EC_early[E_RM$Sex == "F"]))
   print(t.test(E_RM$EC_Late[E_RM$Sex == "M"],E_RM$EC_Late[E_RM$Sex == "F"]))
-  sprintf("There are %.f Males out of %.f subjects", sum(E_RM$Sex == "M"),sum(nrow(E_RM)))
+  print(sprintf("There are %.f Males out of %.f subjects", sum(E_RM$Sex == "M"),sum(nrow(E_RM))))
 }
 
 VariationTcombine<- function(data, give = "RM"){
@@ -462,4 +462,247 @@ Sexcomparisonexp1REA<- function(alldata, exp1 = "M", exp2 = "F") {
   print(etaSquaredTtest(data$EC_Late[data$Sex == exp1],data$EC_Late[data$Sex == exp2], na.rm = TRUE))
   sprintf("There are %.f Males out of %.f subjects", sum(data$Sex == "M"),sum(nrow(data)))
   
+}
+
+
+
+PrepreachdataforT<- function(pasdata, termdata){
+  #
+  
+  Pas_RM<-TCombine(pasdata)
+  Pas_RM$Experiment <- rep('Passive', nrow(Pas_RM))
+  
+  Term_RM<-TCombine(termdata)
+  Term_RM$Experiment <- rep('Terminal', nrow(Term_RM))
+  
+  Pas_RM<-TCombine(pausedata)
+  Pas_RM$Experiment <- rep('Passive', nrow(Pas_RM))
+  
+  Term_RM<-TCombine(nocursordata)
+  Term_RM$Experiment <- rep('Terminal', nrow(Term_RM))
+  
+  
+  
+  
+  
+  
+  AllDataRM<- rbind(Pas_RM, Term_RM)
+  # 
+  return(AllDataRM)
+}
+
+
+PrepdataforANOVA <- function(pasdata, termdata) {
+  
+  
+  Pas_RM<-ANOVAcombine(pasdata)
+  Pas_RM$ID <- sprintf('PasLoc.%s',Pas_RM$ID)
+  Pas_RM$Experiment <- rep('Passive', nrow(Pas_RM))
+  
+  Term_RM<-ANOVAcombine(termdata)
+  Term_RM$ID <- sprintf('Terminal.%s',Term_RM$ID)
+  Term_RM$Experiment <- rep('Terminal', nrow(Term_RM))
+  
+  
+  AllDataRM<- rbind(Pas_RM, Term_RM)
+  #
+  return(AllDataRM)
+  
+}
+
+
+PrepANOVARebounds<- function (pas, term, expo){
+  
+  
+  rebounds<- data.frame()
+  Experiment<- c(rep("Passive", times = 32), rep("Terminal", times = 32), rep("Exposure", times = 32))
+  ID<- c(rep(1:32,times = 3))
+  EC_Late<- colMeans(pas[273:288,2:33], na.rm = TRUE)
+  EC_Late<- c(EC_Late,colMeans(term[273:288,2:33], na.rm = TRUE))
+  EC_Late<- c(EC_Late,(colMeans(expo[33:48,2:33], na.rm = TRUE)*-1))
+  begins<- c(rep(1:32,times = 3))
+  ends<-c(rep("p", times = 32), rep("t", times = 32), rep("e", times = 32))
+  ID<-paste(begins, ends, sep = ".")
+  
+  rebounds<-data.frame(cbind(EC_Late, Experiment, ID))
+  rebounds$EC_Late<- as.numeric(rebounds$EC_Late)
+  
+  return(rebounds)
+}
+
+
+TCombine<- function(data) {
+  ParticipantRM<- data.frame()
+  participants <- c(2:ncol(data))
+  for (participant in participants){
+    Aligned<- mean(unlist(data[61:64,participant]), na.rm = TRUE)
+    r1<- unlist(data[65,participant])
+    r2<- unlist(data[66,participant])
+    r3<- unlist(data[67,participant])
+    r4<- unlist(data[68,participant])
+    R1_Early<- mean(unlist(data[65:68,participant]), na.rm = TRUE)
+    R1_second<-mean(unlist(data[69:72,participant]), na.rm = TRUE) 
+    R1_Late<- mean(unlist(data[221:224,participant]), na.rm = TRUE)
+    R2<- mean(unlist(data[237:240,participant]), na.rm = TRUE)
+    EC<- mean(unlist(data[241:244,participant]), na.rm = TRUE)
+    EC1<- mean(unlist(data[241,participant]), na.rm = TRUE)
+    EC2<- mean(unlist(data[242,participant]), na.rm = TRUE)
+    EC3<- mean(unlist(data[243,participant]), na.rm = TRUE)
+    EC4<- mean(unlist(data[244,participant]), na.rm = TRUE)
+    EC_Late<- mean(unlist(data[273:288,participant]), na.rm = TRUE)
+    RM<- data.frame(Aligned, r1, r2,r3,r4, R1_Early, R1_second, R1_Late, R2, EC, EC_Late, EC1, EC2, EC3, EC4)
+    if (prod(dim(ParticipantRM)) == 0) {
+      ParticipantRM <- RM
+    } else {
+      ParticipantRM <- rbind(ParticipantRM, RM)
+    }
+  }
+  return(ParticipantRM)
+}
+
+##repeated measures combine for ANOVAs
+
+ANOVAcombine<- function(data) {
+  ParticipantARM<- data.frame()
+  participants <- names(data)[2:dim(data)[2]]
+  epochs <- list('R1_early'=c(65,4), 'R1_late'=c(221,4), 'R2D2'=c(237,4), 'EC'=c(273,16))
+  Deviations<- c()
+  Time<- c()
+  ID<- c()
+  
+  for (participant in participants){
+    
+    participant_reaches <- unlist(data[,participant])
+    
+    for (epoch in names(epochs)) {
+      
+      start <- epochs[[epoch]][1]
+      finish <- start -1 + epochs[[epoch]][2]
+      Deviations <- c(Deviations, mean(participant_reaches[start:finish], na.rm=TRUE))
+      Time <- c(Time, epoch)
+      ID <- c(ID, participant)
+      ANOVARM<- data.frame(Deviations, Time, ID)
+    }
+  }
+  #b<- !is.nan(ANOVARM$Reaches)
+  # ANOVARM<- ANOVARM[c(b),]
+  return(ANOVARM)
+}
+
+
+
+etaSquaredTtest <- function(g1,g2=NA,mu=0,na.rm=TRUE) {
+  
+  doOneSample <- FALSE
+  doTwoSample <- FALSE
+  
+  if (length(g2) == 1) {
+    if (is.na(g2)) {
+      doOneSample <- TRUE
+    } else {
+      # set mu to the single value in g2 and do a one sample one anyway?
+    }
+  } else {
+    doTwoSample <- TRUE
+  }
+  
+  if (doOneSample) {
+    
+    # compare group 1 mean with mu as explanation
+    SStotal <- sum((g1-mean(g1,na.rm=na.rm))^2)
+    SSeffect <- sum(((mean(g1, na.rm=na.rm) - mu)^2)*length(g1))
+    # 
+    # 
+    return(SSeffect / SStotal)
+    
+  }
+  
+  if (doTwoSample) {
+    
+    overallmean <- mean(c(g1,g2),na.rm=na.rm)
+    # compare overall mean with group means as explanation
+    SStotal <- sum((c(g1,g2) - overallmean)^2, na.rm=na.rm)
+    SSeffect <- sum(length(g1)*(mean(g1,na.rm=na.rm)-overallmean)^2, length(g2)*(mean(g2,na.rm=na.rm)-overallmean)^2)
+    return(SSeffect / SStotal)
+    
+  }
+  
+}
+
+
+
+ANOVAanalysis<- function(AllDataANOVA){
+  AllDataANOVA$ID<- as.factor(AllDataANOVA$ID)
+  AllDataANOVA$Experiment<- as.factor(AllDataANOVA$Experiment)
+  AllDataANOVA$Time<- as.factor(AllDataANOVA$Time)
+  AllDataANOVA$Sex<- as.factor(AllDataANOVA$Sex)
+  fullmodel <- ezANOVA(data=AllDataANOVA,
+                       dv=Deviations,
+                       wid=ID,
+                       within=Time,
+                       between = .(Experiment,Sex),
+                       type=3,
+                       return_aov=TRUE)
+  return(fullmodel)
+}
+
+
+NoCursorsTCombine<- function(data) {
+  ParticipantRM<- data.frame()
+  participants <- c(2:ncol(data))
+  for (participant in participants){
+    Aligned<- mean(unlist(data[29:32,participant]), na.rm = TRUE)
+    r1<- unlist(data[33,participant])
+    r2<- unlist(data[34,participant])
+    r3<- unlist(data[35,participant])
+    r4<- unlist(data[36,participant])
+    R1_Early<- mean(unlist(data[33:36,participant]), na.rm = TRUE)
+    R1_second<- mean(unlist(data[37:40,participant]), na.rm = TRUE)
+    R1_third<- mean(unlist(data[41:44,participant]), na.rm = TRUE)
+    R1_forth<-mean(unlist(data[45:48,participant]), na.rm = TRUE) 
+    R1_fifth<- mean(unlist(data[49:52,participant]), na.rm = TRUE)
+    R1_sixth<-mean(unlist(data[53:56,participant]), na.rm = TRUE) 
+    R1_Late<- mean(unlist(data[189:192,participant]), na.rm = TRUE)
+    R2<- mean(unlist(data[205:208,participant]), na.rm = TRUE)
+    EC<- mean(unlist(data[209:212,participant]), na.rm = TRUE)
+    EC_Late<- mean(unlist(data[241:256,participant]), na.rm = TRUE)
+    EC1<- mean(unlist(data[209,participant]), na.rm = TRUE)
+    EC2<- mean(unlist(data[210,participant]), na.rm = TRUE)
+    EC3<- mean(unlist(data[211,participant]), na.rm = TRUE)
+    EC4<- mean(unlist(data[212,participant]), na.rm = TRUE)
+    RM<- data.frame(Aligned, r1, r2,r3,r4, R1_Early, R1_second, R1_third, R1_forth, R1_fifth, R1_sixth, R1_Late, R2, EC, EC_Late, EC1, EC2, EC3, EC4)
+    if (prod(dim(ParticipantRM)) == 0) {
+      ParticipantRM <- RM
+    } else {
+      ParticipantRM <- rbind(ParticipantRM, RM)
+    }
+  }
+  return(ParticipantRM)
+}
+
+NoCursorACombine<- function(data) {
+  ParticipantARM<- data.frame()
+  participants <- names(data)[2:dim(data)[2]]
+  epochs <- list('R1_early'=c(33,4), 'R1_late'=c(189,4), 'R2D2'=c(205,4), 'EC'=c(241,16))
+  Deviations<- c()
+  Time<- c()
+  ID<- c()
+  
+  for (participant in participants){
+    
+    participant_reaches <- unlist(data[,participant])
+    
+    for (epoch in names(epochs)) {
+      
+      start <- epochs[[epoch]][1]
+      finish <- start -1 + epochs[[epoch]][2]
+      Deviations <- c(Deviations, mean(participant_reaches[start:finish], na.rm=TRUE))
+      Time <- c(Time, epoch)
+      ID <- c(ID, participant)
+      ANOVARM<- data.frame(Deviations, Time, ID)
+    }
+  }
+  #  b<- !is.nan(ANOVARM$Reaches)
+  #  ANOVARM<- ANOVARM[c(b),]
+  return(ANOVARM)
 }

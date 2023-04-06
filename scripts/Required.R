@@ -46,6 +46,8 @@ loadalldata<- function () {
   no_cursormI<<- removeReachOutliers(Loaddata(group="no-cursor_maxvel", task = "instructed"))
   no_cursormI<- no_cursormI[,-9]
   
+  Demos<<- read.csv("data/All_demographics.csv", header = TRUE)
+  
 }
 
 fixnocursorcolnames<- function () {
@@ -191,4 +193,167 @@ getreachesformodel<- function(data) {
   meanreaches<-rowMeans(data[,2:ncol(data)], na.rm=TRUE)
   distortion<- data$distortion
   return(data.frame(meanreaches,distortion))
+}
+
+combinereachdata<- function() {
+  
+  allreaches<- rbind(variation_reaches, exposure_reaches,terminal_reaches,passive_reaches, active_reaches,pause_reaches, nocursor_reaches) 
+  
+  
+}
+
+
+
+addsexforANOVA<- function() {
+  source('scripts/Analysis.R')
+  
+  pauseRRM<<- ANOVAcombine(pause_reaches)
+  activeRRM<<- ANOVAcombine(active_reaches)
+  terminalRRM<<- ANOVAcombine(terminal_reaches)
+  passiveRRM<<- ANOVAcombine(passive_reaches)
+  nocursorRRM<<- ANOVAcombine(newnocursor_reaches)
+  
+  
+    participant<- c()
+  for (num in 1:32)
+  participant<- c(participant,sprintf('p%s', num))
+  
+  
+  for (p in participant) {
+    
+    pauseRRM$Sex[pauseRRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Pause' & Demos$Participant == p]
+  }
+    
+    pauseRRM$Experiment<- rep("pause", times = nrow(pauseRRM))
+  
+  for (p in participant) {
+    
+    activeRRM$Sex[activeRRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Active' & Demos$Participant == p]
+  }
+    
+    activeRRM$Experiment<- rep("active", times = nrow(activeRRM))
+  
+  for (p in participant) {
+    
+    terminalRRM$Sex[terminalRRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Terminal' & Demos$Participant == p]
+  }
+  
+    terminalRRM$Experiment<- rep("terminal", times = nrow(terminalRRM))
+    
+  for (p in participant) {
+    
+    passiveRRM$Sex[passiveRRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Passive' & Demos$Participant == p]
+  }
+    passiveRRM$Experiment<- rep("passive", times = nrow(passiveRRM))
+  
+  
+  participant<- c()
+  for (num in 1:47)
+    participant<- c(participant,sprintf('p%s', num))
+  
+  
+  
+  for (p in participant) {
+    
+    nocursorRRM$Sex[nocursorRRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'No_Cursor' & Demos$Participant == p]
+  }
+  nocursorRRM$Experiment<- rep("no-cursor", times = nrow(nocursorRRM))
+  
+  
+  allreachdata<<- rbind(pauseRRM,activeRRM,passiveRRM, terminalRRM, nocursorRRM)
+  
+}
+
+
+addsexforTtest<- function () {
+  source('scripts/Analysis.R')
+  
+  pauseTRRM<<- TCombine(pause_reaches)
+  activeTRRM<<- TCombine(active_reaches)
+  terminalTRRM<<- TCombine(terminal_reaches)
+  passiveTRRM<<- TCombine(passive_reaches)
+  nocursorTRRM<<- TCombine(newnocursor_reaches)
+  
+  pauseTRRM$Sex<<- Demos$Sex[Demos$Experiment == 'Pause']
+  pauseTRRM$Experiment<- rep("pause", times = nrow(pauseTRRM))
+  
+  activeTRRM$Sex<<- Demos$Sex[Demos$Experiment == 'Active']
+  activeTRRM$Experiment<- rep("active", times = nrow(activeTRRM))
+  
+  terminalTRRM$Sex<<- Demos$Sex[Demos$Experiment == 'Terminal']
+  terminalTRRM$Experiment<- rep("terminal", times = nrow(terminalTRRM))
+  
+  passiveTRRM$Sex<<- Demos$Sex[Demos$Experiment == 'Passive']
+  passiveTRRM$Experiment<- rep("passive", times = nrow(passiveTRRM))
+  
+  nocursorTRRM$Sex<<- Demos$Sex[Demos$Experiment == 'No_Cursor']
+  nocursorTRRM$Experiment<- rep("no-cursor", times = nrow(nocursorTRRM))
+  
+  
+  
+  allreachTdata<<- rbind(pauseTRRM,activeTRRM,passiveTRRM, terminalTRRM, nocursorTRRM)
+  
+  
+}
+
+
+
+addsexforANOVAImplicit<- function() {
+  source('scripts/Analysis.R')
+  
+  exposureLRM<<- ANOVAcombine(exposure_localization)
+  activeLRM<<- ANOVAcombine(active_localization)
+  terminalLRM<<- ANOVAcombine(terminal_localization)
+  passiveLRM<<- ANOVAcombine(passive_localization)
+  nocursorNRM<<- NoCursorACombine(newnocursor_nocursors)
+  
+  
+  participant<- c()
+  for (num in 1:32)
+    participant<- c(participant,sprintf('p%s', num))
+  
+  
+  for (p in participant) {
+    
+    exposureLRM$Sex[exposureLRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Exposure' & Demos$Participant == p]
+  }
+  
+  exposureLRM$Experiment<- rep("exposure", times = nrow(exposureLRM))
+  
+  for (p in participant) {
+    
+    activeLRM$Sex[activeLRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Active' & Demos$Participant == p]
+  }
+  
+  activeLRM$Experiment<- rep("active", times = nrow(activeLRM))
+  
+  for (p in participant) {
+    
+    terminalLRM$Sex[terminalLRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Terminal' & Demos$Participant == p]
+  }
+  
+  terminalLRM$Experiment<- rep("terminal", times = nrow(terminalLRM))
+  
+  for (p in participant) {
+    
+    passiveLRM$Sex[passiveLRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'Passive' & Demos$Participant == p]
+  }
+  passiveLRM$Experiment<- rep("passive", times = nrow(passiveLRM))
+  
+  
+  participant<- c()
+  for (num in 1:47)
+    participant<- c(participant,sprintf('p%s', num))
+  
+  
+  
+  for (p in participant) {
+    
+    nocursorNRM$Sex[nocursorNRM$ID == p]<<- Demos$Sex[Demos$Experiment == 'No_Cursor' & Demos$Participant == p]
+  }
+  nocursorNRM$Experiment<- rep("no-cursor", times = nrow(nocursorNRM))
+  
+  
+  allreachdataimplicit<<- rbind(exposureLRM,activeLRM,passiveLRM, terminalLRM, nocursorNRM)
+  
 }
